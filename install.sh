@@ -154,4 +154,4 @@ print "Make Run script execuitable"
 chmod +x /src/build/start.sh
 
 print "Install script self-destruct"
-rm install.sh
+rm /src/build/install.sh
