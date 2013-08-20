@@ -65,7 +65,7 @@ sudo -u git -H git clone https://github.com/gitlabhq/gitlab-shell.git
 cd gitlab-shell
 sudo -u git -H git checkout v1.5.0
 sudo -u git -H cp config.yml.example config.yml
-sed -i -e "s/localhost/$hostname/g" config.yml
+sed -i -e "s/localhost/127.0.0.1/g" config.yml
 sudo -u git -H ./bin/install
 
 print "5. Database: Install the database packages"
