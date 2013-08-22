@@ -41,13 +41,13 @@ apt-get -y install git
 mkdir /var/run/sshd
 
 print "1. Packages / Dependencies: Install Python"
-apt-get install -y python
+apt-get install -y python python-docutils
 
 print "2. Ruby: Download Ruby and compile it"
 mkdir /tmp/ruby && cd /tmp/ruby
 curl --progress \
-  http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p392.tar.gz | tar xz
-cd ruby-1.9.3-p392
+  ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz
+cd ruby-2.0.0-p247
 chmod +x configure
 ./configure
 make
@@ -63,7 +63,7 @@ print "4. GitLab shell"
 cd /home/git
 sudo -u git -H git clone https://github.com/gitlabhq/gitlab-shell.git
 cd gitlab-shell
-sudo -u git -H git checkout v1.5.0
+sudo -u git -H git checkout v1.7.0
 sudo -u git -H cp config.yml.example config.yml
 sed -i -e "s/localhost/127.0.0.1/g" config.yml
 sudo -u git -H ./bin/install
@@ -96,7 +96,7 @@ print "6. GitLab: Clone from source"
 cd /home/git
 sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab
 cd /home/git/gitlab
-sudo -u git -H git checkout 5-4-stable
+sudo -u git -H git checkout 6-0-stable
 
 print "6. GitLab: Configure it"
 cd /home/git/gitlab
@@ -113,9 +113,10 @@ chmod -R u+rwX  tmp/pids/
 chmod -R u+rwX  tmp/sockets/
 sudo -u git -H mkdir public/uploads
 chmod -R u+rwX  public/uploads
-sudo -u git -H cp config/puma.rb.example config/puma.rb
+sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
 sudo -u git -H git config --global user.name "GitLab"
 sudo -u git -H git config --global user.email "gitlab@localhost"
+sudo -u git -H git config --global core.autocrlf input
 
 print "6. GitLab: Configure GitLab DB settings"
 sudo -u git -H cp config/database.yml.mysql config/database.yml
@@ -127,7 +128,7 @@ print "6. GitLab: Install Gems"
 cd /home/git/gitlab
 gem install charlock_holmes --version '0.6.9.4'
 sudo -u git -H bundle install --deployment --without \
-  development test postgres unicorn aws
+  development test postgres aws
 # Redis must be up when the rake task runs
 redis-server & > /dev/null  2>&1 &
 sleep 3
