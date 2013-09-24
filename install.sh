@@ -96,7 +96,7 @@ print "6. GitLab: Clone from source"
 cd /home/git
 sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab
 cd /home/git/gitlab
-sudo -u git -H git checkout 6-0-stable
+sudo -u git -H git checkout 6-1-stable
 
 print "6. GitLab: Configure it"
 cd /home/git/gitlab
