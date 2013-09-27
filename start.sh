@@ -14,6 +14,9 @@ sleep 5
 # remove PIDs created by GitLab init script
 rm /home/git/gitlab/tmp/pids/*
 
+# Run the firstrun script
+/srv/gitlab/firstrun.sh
+
 # start gitlab
 service gitlab start
 
@@ -21,6 +24,4 @@ service gitlab start
 service nginx start
 
 # keep script in foreground
-while(true) do
-  sleep 60
-done
+tail -f /home/git/gitlab/log/production.log

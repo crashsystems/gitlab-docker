@@ -1,5 +1,4 @@
 FROM ubuntu:12.04
-ENV HOSTNAME example.com
 ENV MYSQLTMPROOT temprootpass
 
 # Run upgrades
@@ -27,20 +26,17 @@ RUN (echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debco
 # Install GitLab
 RUN (su git -c "cd /home/git && git clone https://github.com/gitlabhq/gitlabhq.git gitlab && cd /home/git/gitlab && git checkout 6-1-stable")
 
-RUN (cd /home/git/gitlab && chown -R git tmp/ && chown -R git log/ && su git -c "cp config/gitlab.yml.example config/gitlab.yml && sed -i -e 's/localhost/$HOSTNAME/g' config/gitlab.yml && chmod -R u+rwX log/ && chmod -R u+rwX tmp/ && mkdir /home/git/gitlab-satellites && mkdir tmp/pids/ && mkdir tmp/sockets/ && chmod -R u+rwX tmp/pids/ && chmod -R u+rwX tmp/sockets/ && mkdir public/uploads && chmod -R u+rwX public/uploads && cp config/unicorn.rb.example config/unicorn.rb && git config --global user.name 'GitLab' && git config --global user.email 'gitlab@localhost' && git config --global core.autocrlf input")
+RUN (cd /home/git/gitlab && chown -R git tmp/ && chown -R git log/ && su git -c "chmod -R u+rwX log/ && chmod -R u+rwX tmp/ && mkdir /home/git/gitlab-satellites && mkdir tmp/pids/ && mkdir tmp/sockets/ && chmod -R u+rwX tmp/pids/ && chmod -R u+rwX tmp/sockets/ && mkdir public/uploads && chmod -R u+rwX public/uploads && cp config/unicorn.rb.example config/unicorn.rb && git config --global user.name 'GitLab' && git config --global user.email 'gitlab@localhost' && git config --global core.autocrlf input")
 
 RUN (cd /home/git/gitlab && gem install charlock_holmes --version '0.6.9.4' && su git -c "bundle install --deployment --without development test postgres aws")
 
 # Install init scripts
 RUN (cd /home/git/gitlab && cp lib/support/init.d/gitlab /etc/init.d/gitlab && chmod +x /etc/init.d/gitlab && update-rc.d gitlab defaults 21)
 
-# Configure Nginx
-RUN (cd /home/git/gitlab && cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab && ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab && sed -i -e "s/YOUR_SERVER_FQDN/$HOSTNAME/g" /etc/nginx/sites-available/gitlab)
-
-ADD . /src/build
-RUN (chmod +x /src/build/install.sh && /src/build/install.sh)
+ADD . /srv/gitlab
+RUN (chmod +x /srv/gitlab/start.sh && chmod +x /srv/gitlab/firstrun.sh)
 
 EXPOSE 80
 EXPOSE 22
 
-CMD ["/src/build/start.sh"]
+CMD ["/srv/gitlab/start.sh"]
