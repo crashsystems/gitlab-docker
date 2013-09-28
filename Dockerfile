@@ -18,7 +18,7 @@ RUN (gem install bundler --no-ri --no-rdoc)
 RUN (adduser --disabled-login --gecos 'GitLab' git)
 
 # Install GitLab Shell
-RUN (su git -c "cd /home/git && git clone https://github.com/gitlabhq/gitlab-shell.git && cd gitlab-shell && git checkout v1.7.0 && cp config.yml.example config.yml && sed -i -e 's/localhost/127.0.0.1/g' config.yml && ./bin/install")
+RUN (su git -c "cd /home/git && git clone https://github.com/gitlabhq/gitlab-shell.git && cd gitlab-shell && git checkout v1.7.1 && cp config.yml.example config.yml && sed -i -e 's/localhost/127.0.0.1/g' config.yml && ./bin/install")
 
 # Install MySQL
 RUN (echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debconf-set-selections && echo mysql-server mysql-server/root_password_again password $MYSQLTMPROOT | debconf-set-selections && apt-get install -y mysql-server mysql-client libmysqlclient-dev)
