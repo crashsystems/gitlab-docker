@@ -3,19 +3,18 @@
 # start SSH
 /usr/sbin/sshd
 
-# start mysql
-mysqld_safe &
-
 # start redis
 redis-server > /dev/null 2>&1 &
-
 sleep 5
+
+# Run the firstrun script
+/srv/gitlab/firstrun.sh
 
 # remove PIDs created by GitLab init script
 rm /home/git/gitlab/tmp/pids/*
 
-# Run the firstrun script
-/srv/gitlab/firstrun.sh
+# start mysql
+mysqld_safe &
 
 # start gitlab
 service gitlab start
