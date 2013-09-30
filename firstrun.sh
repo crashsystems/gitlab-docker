@@ -6,12 +6,12 @@ mysqlRoot=RootPassword
 # === Do not modify anything in this section ===
 
 # Copy over config files
-mv /srv/gitlab/config/nginx /etc/nginx/sites-available/gitlab
+cp /srv/gitlab/config/nginx /etc/nginx/sites-available/gitlab
 ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
-mv /srv/gitlab/config/gitlab.yml /home/git/gitlab/config/gitlab.yml
+cp /srv/gitlab/config/gitlab.yml /home/git/gitlab/config/gitlab.yml
 
 password=$(cat /srv/gitlab/config/database.yml | grep -m 1 password | sed -e 's/  password: "//g' | sed -e 's/"//g')
-mv /srv/gitlab/config/database.yml /home/git/gitlab/config/database.yml
+cp /srv/gitlab/config/database.yml /home/git/gitlab/config/database.yml
 chown git:git /home/git/gitlab/config/database.yml && chmod o-rwx /home/git/gitlab/config/database.yml
 
 # Link data directories to /srv/gitlab/data
