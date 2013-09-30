@@ -145,7 +145,7 @@ production: &base
   # GitLab Satellites
   satellites:
     # Relative paths are relative to Rails.root (default: tmp/repo_satellites/)
-    path: /home/git/gitlab-satellites/
+    path: /srv/gitlab/data/gitlab-satellites/
 
   ## Backup settings
   backup:
@@ -155,7 +155,7 @@ production: &base
   ## GitLab Shell settings
   gitlab_shell:
     # REPOS_PATH MUST NOT BE A SYMLINK!!!
-    repos_path: /home/git/repositories/
+    repos_path: /srv/gitlab/data/repositories/
     hooks_path: /home/git/gitlab-shell/hooks/
 
     # Git over HTTP
