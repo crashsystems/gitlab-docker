@@ -5,6 +5,10 @@ mysqlRoot=RootPassword
 
 # === Do not modify anything in this section ===
 
+# Regenerate the SSH host key
+/bin/rm /etc/ssh/ssh_host_*
+dpkg-reconfigure openssh-server
+
 # Copy over config files
 cp /srv/gitlab/config/nginx /etc/nginx/sites-available/gitlab
 ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
