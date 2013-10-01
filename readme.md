@@ -45,7 +45,7 @@ To create the container instance, run the following:
     cd /path/to/gitlab-docker
     chmod +x firstrun.sh
     chmod +x start.sh
-    docker run -d -v /path/to/gitlab-docker:/srv/gitlab gitlab1
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab gitlab
 
 */path/to/gitlab-docker* represents the folder created by the git clone on the Docker host, and will contain the GitLab instance's data. Make sure to move it to your desired location before running the container. Also, the first boot of the container will take a bit longer, as the firstrun.sh script will be invoked to perform various initialization tasks.
 
@@ -56,7 +56,7 @@ It should be possible to use updates to this build to update a GitLab server. Th
 1. Ether pull an updated version of this script from the Docker index, or git pull this repo and rebuild.
 2. Stop your current instance, and remove it with docker rm.
 3. Inside the gitlab-docker/ folder from the install steps, run *git checkout firstrun.sh* to restore the firstrun.sh script.
-4. Edit the firstrun.sh and delete the section titled "Delete this section if resoring data from previous build." Replace this section with the code to run any nesessary database migrations for the new version.
+4. Edit the firstrun.sh and delete the section titled "Delete this section if restoring data from previous build." Replace this section with the code to run any necessary database migrations for the new version.
 5. Rerun the process from step 3 of the installation instructions.
 
 Note that while this process has been mostly tested, it has not yet been tested with DB migrations. As with any time you perform software updates, [do a backup](https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/backup_restore.md) first.
