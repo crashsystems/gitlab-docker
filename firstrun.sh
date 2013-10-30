@@ -34,7 +34,7 @@ ln -s /srv/gitlab/data/mysql /var/lib/mysql
 
 # ==============================================
 
-# === Delete this section if resoring data from previous build ===
+# === Delete this section if restoring data from previous build ===
 
 rm -R /srv/gitlab/data/mysql
 mv /var/lib/mysql-tmp /srv/gitlab/data/mysql
