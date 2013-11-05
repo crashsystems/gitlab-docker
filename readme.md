@@ -1,6 +1,6 @@
 # GitLab Docker Build Script
 
-This Dockerfile will create a new Docker container running GitLab 6.1 on Ubuntu 12.04.
+This Dockerfile will create a new Docker container running GitLab 6.2 on Ubuntu 12.04.
 
 ## Installation
 
@@ -30,7 +30,7 @@ Note that since GitLab has a large number of dependencies, both pulling from the
 
 If you obtained the image via docker pull and therefore didn't clone the GitHub repo, go ahead and do so at this time. The config/ folder of the repository contains configuration files you will need to edit before creating a new container instance.
 
-* **gitlab.yml**: Change the host field to match the hostname for your GitLab instance. Under "Advanced settings", change the "ssh_port" setting for GitLab Shell to the port on the Docker host that's mapped to port 22 for this container, else you won't be able to commit changes through a git/SSH url. Also, make any additional changes, such as LDAP configs etc, at this time.
+* **gitlab.yml**: Change the host field to match the hostname for your GitLab instance. Under *Advanced settings* in the config file, change the *ssh_port* setting for GitLab Shell to the port on the Docker host that's mapped to port 22 for this container. If you are using a non-standard port and don't do this, you won't be able to commit changes through a git/SSH url. Also, make any additional changes, such as LDAP configs etc, at this time.
 * **database.yml**: In the *production* section, set a good password for the gitlab MySQL password.
 * **nginx**: Replace YOUR_SERVER_FQDN with the hostname for your GitLab instance. Also, this file can be used to configure other things, such as SSL/TLS configurations.
 
