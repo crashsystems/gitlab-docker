@@ -12,7 +12,7 @@ RUN echo deb http://us.archive.ubuntu.com/ubuntu/ precise universe multiverse >>
   apt-get -y upgrade
 
 # Install dependencies
-RUN apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev sudo python python-docutils python-software-properties nginx
+RUN apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev sudo python python-docutils python-software-properties nginx logrotate sendmail
 
 # Install Git
 RUN add-apt-repository -y ppa:git-core/ppa;\
@@ -25,7 +25,7 @@ RUN mkdir /tmp/ruby;\
   curl ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz;\
   cd ruby-2.0.0-p247;\
   chmod +x configure;\
-  ./configure;\
+  ./configure --disable-install-rdoc;\
   make;\
   make install;\
   gem install bundler --no-ri --no-rdoc
@@ -37,7 +37,7 @@ RUN adduser --disabled-login --gecos 'GitLab' git
 RUN cd /home/git;\
   su git -c "git clone https://github.com/gitlabhq/gitlab-shell.git";\
   cd gitlab-shell;\
-  su git -c "git checkout v1.7.1";\
+  su git -c "git checkout v1.7.4";\
   su git -c "cp config.yml.example config.yml";\
   sed -i -e 's/localhost/127.0.0.1/g' config.yml;\
   su git -c "./bin/install"
@@ -51,7 +51,7 @@ RUN echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debcon
 RUN cd /home/git;\
   su git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab";\
   cd /home/git/gitlab;\
-  su git -c "git checkout 6-1-stable"
+  su git -c "git checkout 6-2-stable"
 
 # Misc configuration stuff
 RUN cd /home/git/gitlab;\
@@ -67,6 +67,8 @@ RUN cd /home/git/gitlab;\
   su git -c "mkdir public/uploads";\
   chmod -R u+rwX public/uploads;\
   su git -c "cp config/unicorn.rb.example config/unicorn.rb";\
+  su git -c "cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb";\
+  su git -c "sed -i -e 's/\# config\.middleware\.use Rack\:\:Attack/config.middleware.use Rack::Attack/g' config/application.rb";\
   su git -c "git config --global user.name 'GitLab'";\
   su git -c "git config --global user.email 'gitlab@localhost'";\
   su git -c "git config --global core.autocrlf input"
@@ -79,7 +81,8 @@ RUN cd /home/git/gitlab;\
 RUN cd /home/git/gitlab;\
   cp lib/support/init.d/gitlab /etc/init.d/gitlab;\
   chmod +x /etc/init.d/gitlab;\
-  update-rc.d gitlab defaults 21
+  update-rc.d gitlab defaults 21;\
+  cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
 
 EXPOSE 80
 EXPOSE 22
