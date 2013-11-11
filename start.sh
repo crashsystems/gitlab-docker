@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # start SSH
+mkdir -p /var/run/sshd
 /usr/sbin/sshd
 
 # start redis

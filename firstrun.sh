@@ -60,8 +60,5 @@ su git -c "bundle exec rake db:seed_fu RAILS_ENV=production"
 
 # ================================================================
 
-# Manually create /var/run/sshd
-mkdir /var/run/sshd
-
 # Delete firstrun script
 rm /srv/gitlab/firstrun.sh
