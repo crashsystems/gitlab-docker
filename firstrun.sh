@@ -58,10 +58,10 @@ su git -c "bundle exec rake gitlab:setup force=yes RAILS_ENV=production"
 sleep 5
 su git -c "bundle exec rake db:seed_fu RAILS_ENV=production"
 
-# ================================================================
+# fix timeout - https://github.com/gitlabhq/gitlabhq/issues/694 
+sed -i 's/^timeout .*/timeout 300/' /home/git/gitlab/config/unicorn.rb
 
-# Manually create /var/run/sshd
-mkdir /var/run/sshd
+# ================================================================
 
 # Delete firstrun script
 rm /srv/gitlab/firstrun.sh
