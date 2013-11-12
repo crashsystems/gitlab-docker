@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# upstart workaround
+dpkg-divert --local --rename --add /sbin/initctl
+ln -s /bin/true /sbin/initctl
+
 # start SSH
 mkdir -p /var/run/sshd
 /usr/sbin/sshd
