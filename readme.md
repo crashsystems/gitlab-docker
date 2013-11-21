@@ -49,6 +49,12 @@ To create the container instance, run the following:
 
 */path/to/gitlab-docker* represents the folder created by the git clone on the Docker host, and will contain the GitLab instance's data. Make sure to move it to your desired location before running the container. Also, the first boot of the container will take a bit longer, as the firstrun.sh script will be invoked to perform various initialization tasks.
 
+##### Default username and password
+GitLab creates an admin account during setup. You can use it to log in:
+
+    admin@local.host
+    5iveL!fe
+
 ## Experimental: GitLab update via container rebuild
 
 It should be possible to use updates to this build to update a GitLab server. The process is as follows:
