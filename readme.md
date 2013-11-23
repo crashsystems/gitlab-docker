@@ -16,7 +16,7 @@ With Docker installed and running, do one of the following to obtain GitLab.
 
 **Pull From Docker Index:**
 
-    docker pull crashsystems/gitlab
+    docker pull crashsystems/gitlab-docker
 
 **Build It Yourself**
 
@@ -48,7 +48,7 @@ To create the container instance, run the following:
 
 Next, run this if you pulled the image from the Docker index:
 
-    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab crashsystems/gitlab
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab crashsystems/gitlab-docker
 
 Or this if you built it yourself:
 
