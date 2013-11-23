@@ -45,7 +45,14 @@ To create the container instance, run the following:
     cd /path/to/gitlab-docker
     chmod +x firstrun.sh
     chmod +x start.sh
-    docker run -d -v /path/to/gitlab-docker:/srv/gitlab gitlab
+
+Next, run this if you pulled the image from the Docker index:
+
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab crashsystems/gitlab
+
+Or this if you built it yourself:
+
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab gitlab
 
 */path/to/gitlab-docker* represents the folder created by the git clone on the Docker host, and will contain the GitLab instance's data. Make sure to move it to your desired location before running the container. Also, the first boot of the container will take a bit longer, as the firstrun.sh script will be invoked to perform various initialization tasks.
 
