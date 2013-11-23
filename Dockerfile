@@ -37,7 +37,7 @@ RUN adduser --disabled-login --gecos 'GitLab' git
 RUN cd /home/git;\
   su git -c "git clone https://github.com/gitlabhq/gitlab-shell.git";\
   cd gitlab-shell;\
-  su git -c "git checkout v1.7.4";\
+  su git -c "git checkout v1.7.9";\
   su git -c "cp config.yml.example config.yml";\
   sed -i -e 's/localhost/127.0.0.1/g' config.yml;\
   su git -c "./bin/install"
@@ -51,7 +51,7 @@ RUN echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debcon
 RUN cd /home/git;\
   su git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab";\
   cd /home/git/gitlab;\
-  su git -c "git checkout 6-2-stable"
+  su git -c "git checkout 6-3-stable"
 
 # Misc configuration stuff
 RUN cd /home/git/gitlab;\
@@ -68,13 +68,11 @@ RUN cd /home/git/gitlab;\
   chmod -R u+rwX public/uploads;\
   su git -c "cp config/unicorn.rb.example config/unicorn.rb";\
   su git -c "cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb";\
-  su git -c "sed -i -e 's/\# config\.middleware\.use Rack\:\:Attack/config.middleware.use Rack::Attack/g' config/application.rb";\
   su git -c "git config --global user.name 'GitLab'";\
   su git -c "git config --global user.email 'gitlab@localhost'";\
   su git -c "git config --global core.autocrlf input"
 
 RUN cd /home/git/gitlab;\
-  gem install charlock_holmes --version '0.6.9.4';\
   su git -c "bundle install --deployment --without development test postgres aws"
 
 # Install init scripts
