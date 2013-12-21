@@ -43,8 +43,6 @@ This build makes use of Docker's ability to map host directories to directories 
 To create the container instance, run the following:
 
     cd /path/to/gitlab-docker
-    chmod +x firstrun.sh
-    chmod +x start.sh
 
 Next, run this if you pulled the image from the Docker index:
 
