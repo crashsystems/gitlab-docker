@@ -54,4 +54,5 @@ service nginx start
 sleep 5
 
 # keep script in foreground
+su git -c "touch /home/git/gitlab/log/production.log"
 tail -f /home/git/gitlab/log/production.log
