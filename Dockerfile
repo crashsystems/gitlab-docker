@@ -35,9 +35,8 @@ RUN adduser --disabled-login --gecos 'GitLab' git
 
 # Install GitLab Shell
 RUN cd /home/git;\
-  su git -c "git clone https://github.com/gitlabhq/gitlab-shell.git";\
+  su git -c "git clone https://github.com/gitlabhq/gitlab-shell.git -b v1.8.0";\
   cd gitlab-shell;\
-  su git -c "git checkout v1.7.9";\
   su git -c "cp config.yml.example config.yml";\
   sed -i -e 's/localhost/127.0.0.1/g' config.yml;\
   su git -c "./bin/install"
@@ -49,9 +48,7 @@ RUN echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debcon
 
 # Install GitLab
 RUN cd /home/git;\
-  su git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab";\
-  cd /home/git/gitlab;\
-  su git -c "git checkout 6-3-stable"
+  su git -c "git clone https://github.com/gitlabhq/gitlabhq.git -b 6-4-stable gitlab"
 
 # Misc configuration stuff
 RUN cd /home/git/gitlab;\
@@ -78,7 +75,6 @@ RUN cd /home/git/gitlab;\
 # Install init scripts
 RUN cd /home/git/gitlab;\
   cp lib/support/init.d/gitlab /etc/init.d/gitlab;\
-  chmod +x /etc/init.d/gitlab;\
   update-rc.d gitlab defaults 21;\
   cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
 
