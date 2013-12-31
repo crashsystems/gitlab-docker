@@ -22,8 +22,8 @@ RUN add-apt-repository -y ppa:git-core/ppa;\
 # Install Ruby
 RUN mkdir /tmp/ruby;\
   cd /tmp/ruby;\
-  curl ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz;\
-  cd ruby-2.0.0-p247;\
+  curl ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz;\
+  cd ruby-2.0.0-p353;\
   chmod +x configure;\
   ./configure --disable-install-rdoc;\
   make;\
