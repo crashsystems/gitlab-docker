@@ -1,6 +1,6 @@
 # GitLab Docker Build Script
 
-This Dockerfile will create a new Docker container running GitLab 6.4 on Ubuntu 12.04.
+This Dockerfile will create a new Docker container running GitLab 6.5 on Ubuntu 12.04.
 
 ## Installation
 
