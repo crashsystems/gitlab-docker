@@ -22,7 +22,7 @@ With Docker installed and running, do one of the following to obtain GitLab.
 
     git clone https://github.com/crashsystems/gitlab-docker.git
     cd gitlab-docker
-    docker build -t gitlab .
+    docker build -q -t gitlab .
 
 Note that since GitLab has a large number of dependencies, both pulling from the index or running the build process will take a while, although pulling should be somewhat faster.
 
