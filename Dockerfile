@@ -48,7 +48,7 @@ RUN echo mysql-server mysql-server/root_password password $MYSQLTMPROOT | debcon
 
 # Install GitLab
 RUN cd /home/git;\
-  su git -c "git clone https://github.com/gitlabhq/gitlabhq.git -b 6-5-stable gitlab"
+  su git -c "git clone https://github.com/gitlabhq/gitlabhq.git -b 6-6-stable gitlab"
 
 # Misc configuration stuff
 RUN cd /home/git/gitlab;\
