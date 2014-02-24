@@ -1,6 +1,6 @@
 # GitLab Docker Build Script
 
-This Dockerfile will create a new Docker container running GitLab 6.4 on Ubuntu 12.04.
+This Dockerfile will create a new Docker container running GitLab 6.5 on Ubuntu 12.04.
 
 ## Installation
 
@@ -22,7 +22,7 @@ With Docker installed and running, do one of the following to obtain GitLab.
 
     git clone https://github.com/crashsystems/gitlab-docker.git
     cd gitlab-docker
-    docker build -t gitlab .
+    docker build -q -t gitlab .
 
 Note that since GitLab has a large number of dependencies, both pulling from the index or running the build process will take a while, although pulling should be somewhat faster.
 
