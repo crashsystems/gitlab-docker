@@ -46,13 +46,15 @@ To create the container instance, run the following:
 
 Next, run this if you pulled the image from the Docker index:
 
-    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab crashsystems/gitlab-docker
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab --name gitlab crashsystems/gitlab-docker
 
 Or this if you built it yourself:
 
-    docker run -d -v /path/to/gitlab-docker:/srv/gitlab -name gitlab gitlab
+    docker run -d -v /path/to/gitlab-docker:/srv/gitlab --name gitlab gitlab
 
 */path/to/gitlab-docker* represents the folder created by the git clone on the Docker host, and will contain the GitLab instance's data. Make sure to move it to your desired location before running the container. Also, the first boot of the container will take a bit longer, as the firstrun.sh script will be invoked to perform various initialization tasks.
+
+If you're getting "permission denied" error, run `chcon -Rt svirt_sandbox_file_t /path/to/gitlab-docker` to fix SELinux permissions.
 
 ##### Default username and password
 GitLab creates an admin account during setup. You can use it to log in:
